@@ -10,6 +10,8 @@
 
 Unzip the download and move **Snapmark.app** to **Applications**. Allow Screen Recording when macOS asks on your first capture.
 
+![Snapmark annotates a sample project board with an arrow, rectangle, and numbered marker](docs/screenshots/snapmark-demo.png)
+
 Grab an area, a window, or the whole screen. Mark up what matters with arrows, shapes, text, and numbered steps. Copy the result straight into a message or save it as a PNG.
 
 Snapmark works locally. It keeps the current screenshot in memory and updates your clipboard as you edit. Use solid redaction to cover sensitive pixels in the exported image.
