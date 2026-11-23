@@ -43,10 +43,13 @@ import Testing
         #expect(document.annotations.count == 1)
         let original = try #require(document.annotations.first)
         document.tool = .select
-        let handle = CGPoint(x: original.rect.maxX + 5, y: original.rect.maxY + 5)
+        let handle = CGPoint(x: original.rect.maxX + 7, y: original.rect.maxY + 3)
         canvas.mouseDown(with: try event(.leftMouseDown, handle))
-        canvas.mouseDragged(with: try event(.leftMouseDragged, CGPoint(x: original.rect.maxX + 20, y: original.rect.maxY + 12)))
-        canvas.mouseUp(with: try event(.leftMouseUp, handle))
+        canvas.mouseDragged(with: try event(.leftMouseDragged, handle))
+        #expect(document.annotations.first?.rect == original.rect)
+        let resizedPointer = CGPoint(x: handle.x + 20, y: handle.y + 12)
+        canvas.mouseDragged(with: try event(.leftMouseDragged, resizedPointer))
+        canvas.mouseUp(with: try event(.leftMouseUp, resizedPointer))
         let resized = try #require(document.annotations.first)
         #expect(resized.number == 1)
         #expect(resized.rect.width == resized.rect.height)
@@ -58,6 +61,33 @@ import Testing
         canvas.mouseUp(with: try event(.leftMouseUp, CGPoint(x: original.rect.midX + 15, y: original.rect.midY + 10)))
         #expect(document.annotations.first?.rect == original.rect.offsetBy(dx: 15, dy: 10))
         #expect(document.annotations.first?.number == 1)
+    }
+
+    @Test(arguments: [CGFloat(0.5), 1, 2])
+    func canvasResizeHandleRemainsUsableAtImageEdge(scale: CGFloat) throws {
+        defer { UserDefaults.standard.removePersistentDomain(forName: suite) }
+        let document = document()
+        let annotation = Annotation(tool: .rectangle,
+                                    points: [CGPoint(x: 100, y: 60), CGPoint(x: 160, y: 120)],
+                                    color: .red, width: 4)
+        document.annotations = [annotation]
+        document.selectedID = annotation.id
+        document.tool = .select
+        let canvas = CanvasView(document: document)
+        canvas.frame = CGRect(x: 0, y: 0, width: 160 * scale, height: 120 * scale)
+        func event(_ type: NSEvent.EventType, _ point: CGPoint) throws -> NSEvent {
+            let scaled = CGPoint(x: point.x * scale, y: point.y * scale)
+            return try #require(NSEvent.mouseEvent(with: type, location: canvas.convert(scaled, to: nil), modifierFlags: [], timestamp: 0, windowNumber: 0, context: nil, eventNumber: 0, clickCount: 1, pressure: 1))
+        }
+        let start = CGPoint(x: 160 - 5 / scale, y: 120 - 5 / scale)
+        let end = CGPoint(x: start.x - 10, y: start.y - 12)
+        canvas.mouseDown(with: try event(.leftMouseDown, start))
+        canvas.mouseDragged(with: try event(.leftMouseDragged, end))
+        canvas.mouseUp(with: try event(.leftMouseUp, end))
+        #expect(document.annotations.first?.rect == CGRect(x: 100, y: 60, width: 50, height: 48))
+        document.undo()
+        #expect(document.annotations.first?.rect == annotation.rect)
+        #expect(!document.canUndo)
     }
 
     @Test func renderedBadgeUsesImageCoordinatesStaysWithinBoundsAndCopiesIdentically() throws {

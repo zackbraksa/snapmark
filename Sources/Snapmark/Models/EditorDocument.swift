@@ -85,7 +85,9 @@ import Observation
     }
     func exportPNG() {
         let panel = NSSavePanel(); panel.allowedContentTypes = [.png]; panel.nameFieldStringValue = "Screenshot.png"
-        guard panel.runModal() == .OK, let url = panel.url, let rendered = renderedImage(), let data = NSBitmapImageRep(cgImage: rendered).representation(using: .png, properties: [:]) else { return }
+        guard panel.runModal() == .OK, let url = panel.url else { return }
+        guard let rendered = renderedImage() else { status = "Could not render screenshot"; return }
+        guard let data = NSBitmapImageRep(cgImage: rendered).representation(using: .png, properties: [:]) else { status = "Could not encode screenshot"; return }
         do { try data.write(to: url, options: .atomic); status = "Saved \(url.lastPathComponent)" }
         catch { status = error.localizedDescription }
     }

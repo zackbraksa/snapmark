@@ -11,7 +11,7 @@ enum AnnotationTool: String, CaseIterable, Identifiable {
         case .rectangle: "Drag to draw a rectangular outline."
         case .ellipse: "Drag to draw an oval outline."
         case .pen: "Drag to draw a freehand line."
-        case .text: "Enter text above, then click the screenshot to place it."
+        case .text: "Enter text in the options row, then click the screenshot to place it."
         case .marker: "Click to place the next numbered marker. Select to move or resize it."
         case .highlight: "Drag to add a translucent highlight."
         case .redact: "Drag to cover an area with solid black."

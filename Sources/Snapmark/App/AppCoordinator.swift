@@ -76,12 +76,12 @@ import Observation
         if let editorWindow { window = editorWindow }
         else {
             window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 1040, height: 740), styleMask: [.titled, .closable, .miniaturizable, .resizable], backing: .buffered, defer: false)
+            window.contentMinSize = EditorView.minimumContentSize
             window.isReleasedWhenClosed = false; window.title = "Snapmark"; window.center(); editorWindow = window
         }
         window.contentView = NSHostingView(rootView: EditorView(document: document, onCopy: { [weak self] in
             self?.copyAndCloseEditor()
         }))
-        window.minSize = NSSize(width: 850, height: 480)
         window.makeKeyAndOrderFront(nil); NSApp.activate(ignoringOtherApps: true)
     }
 }

@@ -18,6 +18,12 @@ Snapmark works locally. It keeps the current screenshot in memory and updates yo
 
 Signed releases include **Check for Updates…** in the menu bar menu. Existing users need to install this release once to receive future updates automatically.
 
+## Annotate
+
+Choose a tool in the top toolbar. The options row shows the color, size, or text controls for that tool. Choose Text, type your annotation, then click the screenshot to place it. Use Select to move annotations and drag the bottom-right handle to resize them.
+
+The bottom bar shows image dimensions and clipboard or save status. Use Fit to fit the image to the window, Save PNG to export it, or Copy & Close to return to the app you captured from.
+
 ## Build from source
 
 You’ll need macOS 14 or later and Xcode 26 or later.
