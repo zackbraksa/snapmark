@@ -60,6 +60,8 @@ swift test --build-system native
 
 [MIT](LICENSE)
 
+For certificate-signed local builds, `./script/build_and_run.sh --build` stages the app in `dist/` without changing the installed copy. With an Apple Development identity for team `HQVGN3GH6Z`, `./script/build_and_run.sh --verify` installs and verifies Snapmark in `/Applications`. Run the signing tests with `python3 -m unittest discover -s script/tests -v`.
+
 ## Release preparation
 
 The release configuration keeps the public Sparkle key, feed URL, and monotonically increasing build number. The private Sparkle key remains in Keychain. With `MACOS_SIGNING_IDENTITY` set to the matching Developer ID Application identity, run `./script/prepare-release.sh` to create a separate universal signed candidate in `dist/release/`. Notarize and staple the app and its DMG before publishing. Generate the appcast from the final DMG using the configured Sparkle Keychain account.

@@ -1,0 +1,20 @@
+<?xml version="1.0" standalone="yes"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>Snapmark</title>
+        <item>
+            <title>0.1.1</title>
+            <pubDate>Mon, 23 Nov 2026 18:59:09 +0000</pubDate>
+            <sparkle:version>2</sparkle:version>
+            <sparkle:shortVersionString>0.1.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <description sparkle:format="markdown"><![CDATA[# Snapmark 0.1.1
+
+Adds signed automatic updates with Sparkle. Choose **Check for Updates…** from the menu bar menu to check immediately.
+
+Open `Snapmark-0.1.1-macOS.dmg` and drag Snapmark to Applications. The universal app requires macOS 14 or later.
+]]></description>
+            <enclosure url="https://github.com/zackbraksa/snapmark/releases/download/v0.1.1/Snapmark-0.1.1-macOS.dmg" length="7447041" type="application/octet-stream" sparkle:edSignature="iA0FR6OqBqoXm78RocDRhzLP4I573EhJsm+ZXjWm0Z2ynwaK2Ws/J0w1fnbDn53DQN0PRtx2aMWuHXzyMd3VCw=="/>
+        </item>
+    </channel>
+</rss>
