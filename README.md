@@ -4,11 +4,11 @@
 <h1 align="center">Snapmark</h1>
 <p align="center"><strong>Capture, annotate, and paste from your Mac menu bar.</strong></p>
 <p align="center">
-  <strong><a href="https://github.com/zackbraksa/snapmark/releases/download/v0.1.0/Snapmark-0.1.0-macOS.zip">Download Snapmark for macOS</a></strong><br>
+  <strong><a href="https://github.com/zackbraksa/snapmark/releases/download/v0.1.1/Snapmark-0.1.1-macOS.dmg">Download Snapmark for macOS</a></strong><br>
   macOS 14 or later · Apple silicon and Intel
 </p>
 
-Unzip the download and move **Snapmark.app** to **Applications**. Allow Screen Recording when macOS asks on your first capture.
+Open the disk image and drag **Snapmark** to **Applications**. Allow Screen Recording when macOS asks on your first capture.
 
 ![Snapmark annotates a sample project board with an arrow, rectangle, and numbered marker](docs/screenshots/snapmark-demo.png)
 
@@ -16,9 +16,11 @@ Grab an area, a window, or the whole screen. Mark up what matters with arrows, s
 
 Snapmark works locally. It keeps the current screenshot in memory and updates your clipboard as you edit. Use solid redaction to cover sensitive pixels in the exported image.
 
+Signed releases include **Check for Updates…** in the menu bar menu. Existing users need to install this release once to receive future updates automatically.
+
 ## Build from source
 
-You’ll need macOS 14 or later and Xcode 16 or later.
+You’ll need macOS 14 or later and Xcode 26 or later.
 
 ```sh
 git clone https://github.com/zackbraksa/snapmark.git
@@ -51,3 +53,7 @@ swift test --build-system native
 ## License
 
 [MIT](LICENSE)
+
+## Release preparation
+
+The release configuration keeps the public Sparkle key, feed URL, and monotonically increasing build number. The private Sparkle key remains in Keychain. With `MACOS_SIGNING_IDENTITY` set to the matching Developer ID Application identity, run `./script/prepare-release.sh` to create a separate universal signed candidate in `dist/release/`. Notarize and staple the app and its DMG before publishing. Generate the appcast from the final DMG using the configured Sparkle Keychain account.

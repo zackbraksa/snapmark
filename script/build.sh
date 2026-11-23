@@ -44,10 +44,13 @@ cat > "$BUNDLE/Contents/Info.plist" <<'PLIST'
 <key>NSPrincipalClass</key><string>NSApplication</string>
 <key>NSScreenCaptureUsageDescription</key><string>Snapmark captures a screen, window, or area when you request a screenshot.</string>
 <key>NSHighResolutionCapable</key><true/>
+<key>SparkleUpdatesEnabled</key><false/>
 </dict></plist>
 PLIST
 
+python3 "$ROOT_DIR/script/macos-sparkle.py" embed "$BUNDLE" "$ROOT_DIR/.build"
+
 codesign --force --sign "${SNAPMARK_SIGNING_IDENTITY:--}" --timestamp=none \
     --identifier xyz.braksa.apps.snapmark.dev "$BUNDLE"
-codesign --verify --strict "$BUNDLE"
+codesign --verify --deep --strict "$BUNDLE"
 echo "Built $BUNDLE"

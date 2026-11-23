@@ -3,6 +3,7 @@ import SwiftUI
 @main struct SnapmarkApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var delegate
     @State private var coordinator = AppCoordinator()
+    @StateObject private var updater = AppUpdater()
     @State private var launchAtLogin = LaunchAtLoginStore()
     var body: some Scene {
         MenuBarExtra("Snapmark", systemImage: "viewfinder") {
@@ -14,6 +15,10 @@ import SwiftUI
             Button("Copy Last Screenshot") { coordinator.document?.copy() }.disabled(coordinator.document == nil)
             Divider()
             SettingsLink { Text("Settings…") }.keyboardShortcut(",")
+            if updater.isAvailable {
+                Button("Check for Updates…", action: updater.checkForUpdates)
+                    .disabled(!updater.canCheckForUpdates)
+            }
             Button("Quit Snapmark") { NSApp.terminate(nil) }.keyboardShortcut("q")
         }
         Settings { SettingsView(shortcuts: coordinator.shortcuts, launchAtLogin: launchAtLogin) }

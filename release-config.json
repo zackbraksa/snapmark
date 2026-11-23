@@ -1,0 +1,9 @@
+{
+  "bundleIdentifier": "xyz.braksa.apps.snapmark",
+  "teamIdentifier": "HQVGN3GH6Z",
+  "version": "0.1.1",
+  "build": 2,
+  "feedURL": "https://snapmark.braksa.xyz/updates/appcast.xml",
+  "sparkleKeychainAccount": "xyz.braksa.snapmark",
+  "sparklePublicKey": "xEm9uAo+OZ+WjHwiJ/9gsI6fa5xvGCx0PY1QvY9ir38="
+}
